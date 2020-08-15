@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "867807385342",
+    "firebase_url": "https://twittar-7f04d.firebaseio.com",
+    "project_id": "twittar-7f04d",
+    "storage_bucket": "twittar-7f04d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867807385342:android:8d13b5128500e729a4b7af",
+        "android_client_info": {
+          "package_name": "com.conkermobile.twitterclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867807385342-da7gmuo391qf6pe6sarvfd9qk6ds2jv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnoIE1V9Lx_EIrxNi0dKD_SAMcTRj2yMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867807385342-da7gmuo391qf6pe6sarvfd9qk6ds2jv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
