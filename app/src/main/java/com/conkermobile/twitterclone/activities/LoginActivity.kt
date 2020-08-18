@@ -1,5 +1,8 @@
-package com.conkermobile.twitterclone
+package com.conkermobile.twitterclone.activities
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,7 +16,6 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.twitterclone.HomeActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -27,17 +29,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         setTextChangeListener(emailET, emailTIL)
         setTextChangeListener(passwordET, passwordTIL)
-
-        loginProcessLayout.setOnTouchListener { v :View, event :MotionEvent -> true }
+        loginProgressLayout.setOnTouchListener { _: View, _: MotionEvent -> true }
     }
 
-    fun setTextChangeListener(et: EditText, til: TextInputLayout) {
+    private fun setTextChangeListener(et: EditText, til: TextInputLayout) {
         et.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -65,23 +66,34 @@ class LoginActivity : AppCompatActivity() {
             proceed = false
         }
         if (proceed) {
-            loginProcessLayout.visibility = View.VISIBLE
-            firebaseAuth.signInWithEmailAndPassword(emailET.text.toString(), passwordET.text.toString())
+            loginProgressLayout.visibility = View.VISIBLE
+            firebaseAuth.signInWithEmailAndPassword(
+                emailET.text.toString(),
+                passwordET.text.toString()
+            )
                 .addOnCompleteListener { task: Task<AuthResult> ->
                     if (!task.isSuccessful) {
-                        loginProcessLayout.visibility = View.GONE
-                        Toast.makeText(this@LoginActivity, "Login error: ${task.exception?.localizedMessage}", Toast.LENGTH_SHORT).show()
+                        loginProgressLayout.visibility = View.GONE
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Login error: ${task.exception?.localizedMessage}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
                     }
                 }
-                .addOnFailureListener { e :Exception ->
+                .addOnFailureListener { e: Exception ->
                     e.printStackTrace()
-                    loginProcessLayout.visibility = View.GONE
+                    loginProgressLayout.visibility = View.GONE
                 }
         }
     }
 
     fun goToSignup(v: View) {
-
+        val signupIntent = Intent(this, SignupActivity::class.java)
+        startActivity(signupIntent)
     }
 
     override fun onStart() {
@@ -92,5 +104,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         firebaseAuth.removeAuthStateListener { firebaseAuthListener }
+    }
+
+    companion object {
+        fun newIntent(context: Context) = Intent(context, LoginActivity::class.java)
     }
 }
