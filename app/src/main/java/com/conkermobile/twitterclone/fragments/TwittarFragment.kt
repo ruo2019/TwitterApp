@@ -8,7 +8,7 @@ import com.conkermobile.twitterclone.util.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-abstract class TwitterFragment : Fragment() {
+abstract class TwittarFragment : Fragment() {
 
     protected var tweetsAdapter: TweetListAdapter? = null
     protected var currentUser: User? = null

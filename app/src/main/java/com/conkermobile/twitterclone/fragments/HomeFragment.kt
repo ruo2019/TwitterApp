@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.conkermobile.twitterclone.R
 
 
-class HomeFragment : TwitterFragment() {
+class HomeFragment : TwittarFragment() {
     override fun updateList() {
     }
 

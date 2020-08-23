@@ -9,9 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.conkermobile.twitterclone.R
 import com.conkermobile.twitterclone.listeners.TweetListener
-import com.conkermobile.twitterclone.util.Tweet
-import com.conkermobile.twitterclone.util.getDate
-import com.conkermobile.twitterclone.util.loadURL
+import com.conkermobile.twitterclone.util.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class TweetListAdapter(private val userId: String, private val tweets: ArrayList<Tweet>) : RecyclerView.Adapter<TweetListAdapter.TweetViewHolder>() {
 
@@ -48,9 +47,22 @@ class TweetListAdapter(private val userId: String, private val tweets: ArrayList
         private val likeCount = v.findViewById<TextView>(R.id.tweetLikeCount)
         private val retweet = v.findViewById<ImageView>(R.id.tweetRetweet)
         private val retweetCount = v.findViewById<TextView>(R.id.tweetRetweetCount)
+        private val firebaseDB = FirebaseFirestore.getInstance()
 
         fun bind(userId: String, tweet: Tweet, listener: TweetListener?) {
             username.text = tweet.username
+            firebaseDB
+                .collection(DATA_USERS).document(tweet.userIds!![0]).get()
+                .addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot
+                        .toObject(User::class.java)
+                    if (username.text != user?.username) {
+                        username.text = user?.username
+                    }
+                }
+                .addOnFailureListener {
+                    it.printStackTrace()
+                }
             text.text = tweet.text
             if(tweet.imageURL.isNullOrEmpty()) {
                 image.visibility = View.GONE

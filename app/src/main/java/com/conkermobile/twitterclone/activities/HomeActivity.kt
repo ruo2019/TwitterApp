@@ -16,7 +16,7 @@ import com.conkermobile.twitterclone.R
 import com.conkermobile.twitterclone.fragments.HomeFragment
 import com.conkermobile.twitterclone.fragments.MyActivityFragment
 import com.conkermobile.twitterclone.fragments.SearchFragment
-import com.conkermobile.twitterclone.fragments.TwitterFragment
+import com.conkermobile.twitterclone.fragments.TwittarFragment
 import com.conkermobile.twitterclone.listeners.HomeCallback
 import com.conkermobile.twitterclone.util.DATA_USERS
 import com.conkermobile.twitterclone.util.User
@@ -37,7 +37,7 @@ class HomeActivity : AppCompatActivity(), HomeCallback {
     private val myActivityFragment = MyActivityFragment()
     private var userId = FirebaseAuth.getInstance().currentUser?.uid
     private var user : User? = null
-    private var currentFragment: TwitterFragment = homeFragment
+    private var currentFragment: TwittarFragment = homeFragment
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {

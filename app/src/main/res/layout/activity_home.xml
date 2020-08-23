@@ -38,7 +38,10 @@
                 android:layout_marginStart="@dimen/standard_image"
                 android:paddingStart="@dimen/grid_3x"
                 android:layout_gravity="center_vertical"
-                android:text="@string/text_home" />
+                android:text="@string/text_home"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/searchBar"
@@ -69,7 +72,9 @@
                 android:layout_marginBottom="8dp"
                 android:onClick="search"
                 android:text="@string/text_go"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:background="@color/colorAccent"/>
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 

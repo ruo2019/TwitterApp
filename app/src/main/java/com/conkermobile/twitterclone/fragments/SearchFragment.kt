@@ -13,7 +13,7 @@ import com.conkermobile.twitterclone.util.*
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_search.*
 
-class SearchFragment : TwitterFragment() {
+class SearchFragment : TwittarFragment() {
 
     private var currentHashtag = ""
     private var hashtagFollowed = false
