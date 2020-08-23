@@ -24,7 +24,7 @@ class ProfileActivity : AppCompatActivity() {
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseDB = FirebaseFirestore.getInstance()
     private val firebaseStorage = FirebaseStorage.getInstance().reference
-    private val userID = FirebaseAuth.getInstance().currentUser?.uid
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private var imageURL: String? = null
 
     @SuppressLint("ClickableViewAccessibility")
@@ -32,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_profile)
 
-        if(userID == null) {
+        if(userId == null) {
             finish()
         }
 
@@ -49,13 +49,14 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun populateInfo() {
         profileProgressLayout.visibility = View.VISIBLE
-        firebaseDB.collection(DATA_USERS).document(userID!!).get()
+        firebaseDB.collection(DATA_USERS).document(userId!!).get()
             .addOnSuccessListener { documentSnapshot  ->
                 val user = documentSnapshot.toObject(User::class.java)
                 newUsernameET.setText(user?.username, TextView.BufferType.EDITABLE)
                 newEmailET.setText(user?.email, TextView.BufferType.EDITABLE)
+                imageURL = user?.imageURL
                 imageURL?.let {
-                    photoIV.loadURL(user?.imageUrl, R.drawable.logo)
+                    photoIV.loadURL(user?.imageURL, R.drawable.default_user)
                 }
                 profileProgressLayout.visibility = View.GONE
             }
@@ -73,7 +74,7 @@ class ProfileActivity : AppCompatActivity() {
         map[DATA_USER_USERNAME] = username
         map[DATA_USER_EMAIL] = email
 
-        firebaseDB.collection(DATA_USERS).document(userID!!).update(map)
+        firebaseDB.collection(DATA_USERS).document(userId!!).update(map)
             .addOnSuccessListener {
                 Toast.makeText(this, "Update successful", Toast.LENGTH_SHORT).show()
                 finish()
@@ -92,12 +93,38 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun storeImage(imageURL: Uri?) {
-        imageURL?.let {
-            Toast.makeText(this,"Uploading...", Toast.LENGTH_SHORT).show()
+    fun storeImage(imageURi: Uri?) {
+        imageURi?.let {
+            Toast.makeText(this, "Uploading...", Toast.LENGTH_SHORT).show()
             profileProgressLayout.visibility = View.VISIBLE
-            val fillPath : FirebaseStorage = firebaseStorage.
+            val filePath = firebaseStorage.child(DATA_IMAGES).child(userId!!)
+            filePath.putFile(imageURi)
+                .addOnSuccessListener {
+                    filePath.downloadUrl
+                        .addOnSuccessListener {uri ->
+                            val url = uri.toString()
+                            firebaseDB.collection(DATA_USERS).document(userId).update(DATA_USERS_IMAGE_URL, url)
+                                .addOnSuccessListener {
+                                    imageURL = url
+                                    photoIV.loadURL(imageURL, R.drawable.logo)
+
+                                }
+                            profileProgressLayout.visibility = View.GONE
+                        }
+                        .addOnFailureListener {
+                            onUploadFailure()
+                        }
+                }
+                .addOnFailureListener {
+                    onUploadFailure()
+                }
         }
+
+    }
+
+    fun onUploadFailure() {
+        Toast.makeText(this, "Image upload failed. Please try again later.", Toast.LENGTH_SHORT).show()
+        profileProgressLayout.visibility = View.GONE
     }
 
     fun onSignout(v: View) {

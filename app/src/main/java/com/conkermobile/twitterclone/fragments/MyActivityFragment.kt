@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.conkermobile.twitterclone.R
 
 class MyActivityFragment : TwitterFragment() {
+    override fun updateList() {
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -8,6 +8,8 @@ import com.conkermobile.twitterclone.R
 
 
 class HomeFragment : TwitterFragment() {
+    override fun updateList() {
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -15,6 +17,4 @@ class HomeFragment : TwitterFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
-
-
 }

@@ -22,11 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
-        val user: String? = firebaseAuth.currentUser?.uid
-        user?.let {
-            startActivity(HomeActivity.newIntent(this))
-            finish()
-        }
+       val user: String? = firebaseAuth.currentUser?.uid
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -35,21 +31,18 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         setTextChangeListener(emailET, emailTIL)
         setTextChangeListener(passwordET, passwordTIL)
+
         loginProgressLayout.setOnTouchListener { _: View, _: MotionEvent -> true }
     }
 
     private fun setTextChangeListener(et: EditText, til: TextInputLayout) {
         et.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun afterTextChanged(s: Editable?) {}
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 til.isErrorEnabled = false
             }
-
         })
     }
 
