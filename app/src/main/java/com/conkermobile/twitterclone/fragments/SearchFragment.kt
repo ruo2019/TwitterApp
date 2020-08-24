@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.conkermobile.twitterclone.R
 import com.conkermobile.twitterclone.adapters.TweetListAdapter
+import com.conkermobile.twitterclone.listeners.TwittarListenerimpl
 import com.conkermobile.twitterclone.util.*
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -27,6 +28,9 @@ class SearchFragment : TwittarFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        listener = TwittarListenerimpl(tweetList, currentUser, callback)
+
         tweetsAdapter = TweetListAdapter(userId!!, arrayListOf())
         tweetsAdapter?.setListener(listener)
         tweetList?.apply {
@@ -49,7 +53,7 @@ class SearchFragment : TwittarFragment() {
             }
             firebaseDB.collection(DATA_USERS).document(userId).update(DATA_USERS_HASHTAGS, followed)
                 .addOnSuccessListener {
-                    callback?.onUserUpdate()
+                    callback?.onUserUpdated()
                     followHashtag.isClickable = true
                 }
                 .addOnFailureListener{ e :Exception ->

@@ -9,10 +9,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.conkermobile.twitterclone.R
 import com.conkermobile.twitterclone.listeners.TweetListener
-import com.conkermobile.twitterclone.util.*
+import com.conkermobile.twitterclone.util.Tweet
+import com.conkermobile.twitterclone.util.getDate
+import com.conkermobile.twitterclone.util.loadURL
 import com.google.firebase.firestore.FirebaseFirestore
 
-class TweetListAdapter(private val userId: String, private val tweets: ArrayList<Tweet>) : RecyclerView.Adapter<TweetListAdapter.TweetViewHolder>() {
+class TweetListAdapter(private val userId: String, private val tweets: ArrayList<Tweet>) :
+    RecyclerView.Adapter<TweetListAdapter.TweetViewHolder>() {
 
     private var listener: TweetListener? = null
 
@@ -51,20 +54,8 @@ class TweetListAdapter(private val userId: String, private val tweets: ArrayList
 
         fun bind(userId: String, tweet: Tweet, listener: TweetListener?) {
             username.text = tweet.username
-            firebaseDB
-                .collection(DATA_USERS).document(tweet.userIds!![0]).get()
-                .addOnSuccessListener { documentSnapshot ->
-                    val user = documentSnapshot
-                        .toObject(User::class.java)
-                    if (username.text != user?.username) {
-                        username.text = user?.username
-                    }
-                }
-                .addOnFailureListener {
-                    it.printStackTrace()
-                }
             text.text = tweet.text
-            if(tweet.imageURL.isNullOrEmpty()) {
+            if (tweet.imageURL.isNullOrEmpty()) {
                 image.visibility = View.GONE
             } else {
                 image.visibility = View.VISIBLE
@@ -79,22 +70,42 @@ class TweetListAdapter(private val userId: String, private val tweets: ArrayList
             like.setOnClickListener { listener?.onLike(tweet) }
             retweet.setOnClickListener { listener?.onRetweet(tweet) }
 
-            if(tweet.likes?.contains(userId) == true) {
+            if (tweet.likes?.contains(userId) == true) {
                 like.setImageDrawable(ContextCompat.getDrawable(like.context, R.drawable.like))
             } else {
-                like.setImageDrawable(ContextCompat.getDrawable(like.context, R.drawable.like_inactive))
+                like.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        like.context,
+                        R.drawable.like_inactive
+                    )
+                )
             }
 
             when {
-                tweet.userIds?.get(0).equals(userId) -> {
-                    retweet.setImageDrawable(ContextCompat.getDrawable(like.context, R.drawable.original))
+                tweet.userIds?.get(0) == userId -> {
+                    retweet.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            like.context,
+                            R.drawable.original
+                        )
+                    )
                     retweet.isClickable = false
                 }
                 tweet.userIds?.contains(userId) == true -> {
-                    retweet.setImageDrawable(ContextCompat.getDrawable(like.context, R.drawable.retweet))
+                    retweet.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            like.context,
+                            R.drawable.retweet
+                        )
+                    )
                 }
                 else -> {
-                    retweet.setImageDrawable(ContextCompat.getDrawable(like.context, R.drawable.retweet_inactive))
+                    retweet.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            like.context,
+                            R.drawable.retweet_inactive
+                        )
+                    )
                 }
             }
         }

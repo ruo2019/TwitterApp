@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.conkermobile.twitterclone.adapters.TweetListAdapter
 import com.conkermobile.twitterclone.listeners.HomeCallback
+import com.conkermobile.twitterclone.listeners.TwittarListenerimpl
 import com.conkermobile.twitterclone.util.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,7 +15,7 @@ abstract class TwittarFragment : Fragment() {
     protected var currentUser: User? = null
     protected val firebaseDB = FirebaseFirestore.getInstance()
     protected val userId = FirebaseAuth.getInstance().currentUser?.uid
-    protected val listener = null
+    protected var listener: TwittarListenerimpl? = null
     protected var callback: HomeCallback? = null
 
     override fun onAttach(context: Context) {

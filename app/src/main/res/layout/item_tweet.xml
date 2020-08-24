@@ -68,9 +68,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/grid_2x"
+                android:paddingStart="@dimen/grid_2x"
                 android:textSize="@dimen/standard_text_size"
-                android:text="0"/>
+                android:text="@string/_0"
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,9 +95,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/grid_2x"
+                android:paddingStart="@dimen/grid_2x"
                 android:textSize="@dimen/standard_text_size"
-                android:text="0"/>
+                android:text="@string/_0"/>
 
         </LinearLayout>
     </LinearLayout>

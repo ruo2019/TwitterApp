@@ -10,4 +10,6 @@
     <color name="transparent_grey">#99cccccc</color>
     <color name="shadow_color">#cadddddd</color>
     <color name="purple">#ff00ff</color>
+    <color name="green">#00dd00</color>
+    <color name="turquoise">#00ffd0</color>
 </resources>
