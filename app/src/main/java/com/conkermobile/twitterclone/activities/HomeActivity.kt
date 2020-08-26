@@ -128,7 +128,7 @@ class HomeActivity : AppCompatActivity(), HomeCallback {
             }
     }
 
-    fun updateFragmentUser() {
+    private fun updateFragmentUser() {
         homeFragment.setUser(user)
         searchFragment.setUser(user)
         myActivityFragment.setUser(user)

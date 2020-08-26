@@ -14,20 +14,20 @@ class TwittarListenerimpl(
     private val firebaseDB = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-    override fun onLayoutClick(tweet: Tweet?) {
-
-    }
+    override fun onLayoutClick(tweet: Tweet?) {}
 
     override fun onLike(tweet: Tweet?) {
         tweet?.let {
             tweetList.isClickable = false
-            val likes :ArrayList<String>? = tweet.likes
-            if(tweet.likes?.contains(userId) == true) {
-                likes?.remove(userId!!)
+            val likes = tweet.likes
+            if (tweet.likes?.contains(userId) == true) {
+                likes?.remove(userId)
             } else {
                 likes?.add(userId!!)
             }
-            firebaseDB.collection(DATA_TWEETS).document(tweet.tweetId!!).update(DATA_TWEETS_LIKES, likes)
+            firebaseDB.collection(DATA_TWEETS)
+                .document(tweet.tweetId!!)
+                .update(DATA_TWEETS_LIKES, likes)
                 .addOnSuccessListener {
                     tweetList.isClickable = true
                     callback?.onRefresh()
@@ -39,5 +39,9 @@ class TwittarListenerimpl(
     }
 
     override fun onRetweet(tweet: Tweet?) {
+        tweet?.let {
+            tweetList.isClickable = false
+            val retweets :ArrayList<String>? = tweet.userIds
+        }
     }
 }

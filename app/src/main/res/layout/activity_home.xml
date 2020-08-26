@@ -10,7 +10,7 @@
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/orange"
         android:orientation="horizontal"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/grid_1x"
-        app:cardCornerRadius="@dimen/standard_corner_radius">
+        app:cardCornerRadius="@dimen/standard_corner_radius"
+        android:backgroundTint="@color/turquoise">
 
         <ImageView
             android:id="@+id/logo"
@@ -50,7 +51,8 @@
             android:layout_gravity="center_vertical"
             app:cardCornerRadius="@dimen/standard_corner_radius"
             android:visibility="gone"
-            android:layout_marginStart="60dp">
+            android:layout_marginStart="60dp"
+            android:backgroundTint="@color/orange">
 
             <EditText
                 android:id="@+id/search"

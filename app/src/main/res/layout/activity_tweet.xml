@@ -32,7 +32,8 @@
         android:onClick="postTweet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/grid_3x"/>
+        android:layout_margin="@dimen/grid_3x"
+        android:backgroundTint="@color/purple" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabPhoto"
@@ -42,7 +43,8 @@
         android:onClick="addImage"
         app:layout_constraintBottom_toTopOf="@+id/fabSend"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/grid_3x"/>
+        android:layout_margin="@dimen/grid_3x"
+        android:backgroundTint="@color/purple"/>
 
     <LinearLayout
         android:id="@+id/tweetProgressLayout"
