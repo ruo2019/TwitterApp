@@ -13,7 +13,7 @@ const val DATA_IMAGES = "ProfileImages"
 const val DATA_TWEETS = "Tweets"
 const val DATA_TWEET_USER_IDS = "userIds"
 const val DATA_TWEET_HASHTAGS = "hashtags"
-const val DATA_TWEETS_LIKES = "Likes"
+const val DATA_TWEETS_LIKES = "likes"
 
 const val DATA_TWEETS_IMAGES = "TweetImages"
 
