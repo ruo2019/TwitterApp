@@ -25,6 +25,10 @@ class HomeFragment : TwittarFragment() {
         listener = TwittarListenerimpl(tweetList, currentUser, callback)
 
         tweetsAdapter = TweetListAdapter(userId!!, arrayListOf())
+        tweetsAdapter?.setListener(listener)
+        tweetList?.apply {
+            layout
+        }
     }
 
     override fun updateList() {
