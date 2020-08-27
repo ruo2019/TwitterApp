@@ -27,7 +27,7 @@ class HomeFragment : TwittarFragment() {
         tweetsAdapter = TweetListAdapter(userId!!, arrayListOf())
         tweetsAdapter?.setListener(listener)
         tweetList?.apply {
-            layout
+            layoutManager
         }
     }
 
