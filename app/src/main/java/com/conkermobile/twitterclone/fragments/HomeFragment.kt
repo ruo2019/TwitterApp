@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.conkermobile.twitterclone.R
 import com.conkermobile.twitterclone.adapters.TweetListAdapter
 import com.conkermobile.twitterclone.listeners.TwittarListenerimpl
@@ -27,7 +28,8 @@ class HomeFragment : TwittarFragment() {
         tweetsAdapter = TweetListAdapter(userId!!, arrayListOf())
         tweetsAdapter?.setListener(listener)
         tweetList?.apply {
-            layoutManager
+            layoutManager = LinearLayoutManager(context)
+            adapter
         }
     }
 
