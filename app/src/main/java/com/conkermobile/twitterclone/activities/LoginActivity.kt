@@ -33,6 +33,12 @@ class LoginActivity : AppCompatActivity() {
         setTextChangeListener(passwordET, passwordTIL)
 
         loginProgressLayout.setOnTouchListener { _: View, _: MotionEvent -> true }
+
+        if (firebaseAuth.currentUser != null) {
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
+            finish()
+        }
     }
 
     private fun setTextChangeListener(et: EditText, til: TextInputLayout) {
